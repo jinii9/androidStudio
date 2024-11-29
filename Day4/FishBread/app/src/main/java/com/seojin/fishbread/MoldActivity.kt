@@ -13,7 +13,7 @@ import com.seojin.fishbread.models.FishBread
 import com.seojin.fishbread.models.FlowerBread
 
 class MoldActivity : AppCompatActivity() {
-    var fishBread = true
+//    var fishBread = true
     var bread: Bread = Bread()
 
 

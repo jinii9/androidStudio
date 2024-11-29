@@ -83,5 +83,7 @@ class MainActivity : AppCompatActivity() {
             getResult.launch(intent)
         }
 
+        val buttonSell = findViewById<Button>(R.id.buttonSell)
+//        buttonSell
     }
 }
