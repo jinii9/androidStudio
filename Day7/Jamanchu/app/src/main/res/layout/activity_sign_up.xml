@@ -90,7 +90,7 @@
             android:layout_height="50dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="abc@example.com"
+            android:hint="닉네임"
             android:inputType="text"
             android:padding="8dp" />
 
