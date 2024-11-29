@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">자만추</string>
+
+    // 나이 값
+    <string-array name="age_array">
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+    </string-array>
 </resources>
