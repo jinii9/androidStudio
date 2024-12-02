@@ -69,6 +69,14 @@ class IntroActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // 로그인 버튼
+        // 회원가입 버튼
+        val buttonLogin = findViewById<TextView>(R.id.buttonLogin)
+        buttonLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
 

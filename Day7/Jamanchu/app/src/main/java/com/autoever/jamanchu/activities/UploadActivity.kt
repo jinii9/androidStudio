@@ -7,7 +7,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -33,6 +35,7 @@ class UploadActivity : AppCompatActivity() {
     private val CAMERA_PERMISSION_CODE = 102
     private var imageUri: Uri? = null
     private var photoUri: Uri? = null
+    private lateinit var loadingOverlay: FrameLayout // 로딩 오버레이
 
     private lateinit var imageView: ImageView
 
@@ -46,10 +49,13 @@ class UploadActivity : AppCompatActivity() {
             insets
         }
 
+
         imageView = findViewById<ImageView>(R.id.imageView)
         val btnCamera = findViewById<TextView>(R.id.btnCamera)
         val btnAlbum = findViewById<TextView>(R.id.btnAlbum)
         val textViewUpload = findViewById<TextView>(R.id.textViewUpload)
+
+        loadingOverlay = findViewById(R.id.loadingOverlay)
 
         // 앨범 선택
         btnAlbum.setOnClickListener {
@@ -67,7 +73,14 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        loadingOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+
     private fun upload(uri: Uri) {
+        showLoading(true)
+
         val storage = FirebaseStorage.getInstance()
         val storageRef: StorageReference = storage.reference
         val imageRef = storageRef.child("images/${System.currentTimeMillis()}.jpg")
@@ -76,11 +89,14 @@ class UploadActivity : AppCompatActivity() {
         uploadTask.addOnSuccessListener { taskSnapshot ->
             imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
                 imageUri = null
+                showLoading(false)
+
                 FirebaseAuth.getInstance().currentUser?.email?.let { email ->
                     updateUserImage(email, downloadUrl.toString())
                 } ?: Toast.makeText(this, "사용자 인증 정보를 찾을 수 없습니다", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener {
+            showLoading(false)
             Toast.makeText(this, "업로드 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
         }
     }
