@@ -118,7 +118,7 @@ class SignUpActivity : AppCompatActivity() {
                 Log.d("SignUpActivity", "User data successfully written!")
 
                 // 메인 화면으로 이동
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, UploadActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) // 회원가입 화면을 없애준다.
                 startActivity(intent)
             }
